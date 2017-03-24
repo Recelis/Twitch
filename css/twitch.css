@@ -1,0 +1,26 @@
+body{
+        
+}
+
+
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: lightgrey;
+}
+
+.flex-title{
+    margin: 100px;
+}
+
+.flex-item {
+    background-color: cornflowerblue;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
