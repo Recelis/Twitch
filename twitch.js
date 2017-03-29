@@ -19,14 +19,6 @@ var twitchChannels = ["ESL_SC2",
     for (var ii = 0; ii < twitchChannels.length; ii++){ 
         url.push("https://wind-bow.gomix.me/twitch-api/streams/"+twitchChannels[ii]+ "?callback=?");
     }
-    $.getJSON(
-            url[0],
-            // function(data){
-            //     // console.log(data);
-            //     document.getElementById("offlineElements").innerHTML  = twitchChannels[3];    
-            //     //console.log(twitchChannels[6]);
-            // }
-    )
     for (var ii =0; ii < twitchChannels.length; ii++){
         (function(ii) {
         $.getJSON(
@@ -83,7 +75,11 @@ var twitchChannels = ["ESL_SC2",
                     var element = document.getElementById("streamElements");
                     element.appendChild(titles);
                     var lineBreak = document.createElement("br");
-                    element.appendChild(lineBreak);      
+                    element.appendChild(lineBreak);
+                    var addDetails = document.createElement("p");
+                    var streamDetails = document.createTextNode(data["stream"]["channel"]["game"]);     
+                    addDetails.appendChild(streamDetails);
+                    element.appendChild(addDetails); 
                 }
                 // check if not streaming
 

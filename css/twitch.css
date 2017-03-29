@@ -7,31 +7,37 @@ a, p, h1,h2,h3{
     font-family: 'Old Standard TT', serif;   
 }
 
+p{
+    font-size: 15px;
+    font-style: italic;
+}
 
 .logo{
     font-family: 'Old Standard TT', serif;   
 }
 
-/*.flex-container {
+.flex-container {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
     width: 100%;
     background-color: lightgrey;
-}*/
+}
 
-/*.flex-title{
+.flex-title{
     margin: 100px;
+    font-family: 'Old Standard TT', serif;
 }
 
 .flex-item {
+    font-family: 'Old Standard TT', serif;
     background-color: cornflowerblue;
     width: 200px;
-    height: 50px;
     margin-left: 40%;
     margin-right:40%;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px;
-}*/
+    font-size: 20px;
+}
