@@ -1,4 +1,6 @@
 // http://www.cloford.com/resources/colours/500col.htm
+// use flexbox properly
+// make links on channels
 
 
 
@@ -10,7 +12,8 @@ var twitchChannels = ["ESL_SC2",
     "storbeck", 
     "habathcx", 
     "RobotCaleb", 
-    "noobs2ninjas"];
+    "noobs2ninjas",
+    "comster404"];
 
     var url = [];
     for (var ii = 0; ii < twitchChannels.length; ii++){ 
@@ -33,13 +36,30 @@ var twitchChannels = ["ESL_SC2",
                 console.log(ii);
                 // console.log(data);
                 // check if not disconnected
-
+                if (data["stream"] === null){
+                    console.log("not streaming");
+                    var titles = document.createElement("a");
+                    var channelText = document.createTextNode(twitchChannels[ii]);    
+                    titles.appendChild(channelText);
+                    titles.title = twitchChannels[ii];
+                    titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
+                    var offlineElements = document.createAttribute("class");
+                    offlineElements.value = "offlineElements";                           // Set the value of the class attribute
+                    titles.setAttributeNode(offlineElements); 
+                    var element = document.getElementById("offlineElements");
+                    element.appendChild(titles);    
+                } else{
+                    console.log("streaming");
+                    var titles = document.createElement("p");
+                    var channelText = document.createTextNode(twitchChannels[ii]);    
+                    titles.appendChild(channelText);
+                    var element = document.getElementById("streamElements");
+                    element.appendChild(titles); 
+                }
                 // check if not streaming
 
 
-                titles = document.getElementById("offlineElements").innerHTML;    
-                titles = titles + "<br>" +  twitchChannels[ii];
-                document.getElementById("offlineElements").innerHTML = titles;
+                
                 console.log(data);
             }
         );
