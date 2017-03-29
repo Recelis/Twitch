@@ -36,25 +36,54 @@ var twitchChannels = ["ESL_SC2",
                 console.log(ii);
                 // console.log(data);
                 // check if not disconnected
+
+                // create anchor element
+                var titles = document.createElement("a");
+                var channelText = document.createTextNode(twitchChannels[ii]);    
+                titles.appendChild(channelText);
+                titles.title = twitchChannels[ii];
+                titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
+                
+                // sort out into offline or streaming
                 if (data["stream"] === null){
                     console.log("not streaming");
-                    var titles = document.createElement("a");
-                    var channelText = document.createTextNode(twitchChannels[ii]);    
-                    titles.appendChild(channelText);
-                    titles.title = twitchChannels[ii];
-                    titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
-                    var offlineElements = document.createAttribute("class");
-                    offlineElements.value = "offlineElements";                           // Set the value of the class attribute
-                    titles.setAttributeNode(offlineElements); 
-                    var element = document.getElementById("offlineElements");
-                    element.appendChild(titles);    
+                    // check if channel is still alive
+                    var channelUrl = "https://wind-bow.gomix.me/twitch-api/channels/"+twitchChannels[ii]+ "?callback=?"
+                    $.getJSON(
+                        channelUrl,
+                        function(channelData){
+                            console.log("CHANNEL DATA");
+                            console.log(channelData);
+                            if (channelData["status"] === 404){
+                                var nonExistentElements = document.createAttribute("class");
+                                nonExistentElements.value = "offlineElements";                           // Set the value of the class attribute
+                                titles.setAttributeNode(nonExistentElements); 
+                                var element = document.getElementById("closedElements");
+                                element.appendChild(titles);
+                                var lineBreak = document.createElement("br");
+                                element.appendChild(lineBreak);
+                            } else{
+                                var offlineElements = document.createAttribute("class");
+                                offlineElements.value = "offlineElements";                           // Set the value of the class attribute
+                                titles.setAttributeNode(offlineElements); 
+                                var element = document.getElementById("offlineElements");
+                                element.appendChild(titles);
+                                var lineBreak = document.createElement("br");
+                                element.appendChild(lineBreak);
+                            }
+                        }
+                    )
+                        
                 } else{
                     console.log("streaming");
-                    var titles = document.createElement("p");
-                    var channelText = document.createTextNode(twitchChannels[ii]);    
-                    titles.appendChild(channelText);
+                    console.log("currently streaming");
+                    var onlineElements = document.createAttribute("class");
+                    onlineElements.value = "streamElements";                           // Set the value of the class attribute
+                    titles.setAttributeNode(onlineElements); 
                     var element = document.getElementById("streamElements");
-                    element.appendChild(titles); 
+                    element.appendChild(titles);
+                    var lineBreak = document.createElement("br");
+                    element.appendChild(lineBreak);      
                 }
                 // check if not streaming
 
