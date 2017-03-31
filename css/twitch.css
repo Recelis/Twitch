@@ -21,7 +21,7 @@ p{
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-    width: 100%;
+    /*width: 100%;*/
     background-color: lightgrey;
 }
 
@@ -30,13 +30,22 @@ p{
     font-family: 'Old Standard TT', serif;
 }
 
+.flex-subtitle {
+    font-family: 'Old Standard TT', serif;
+    background-color: cornflowerblue;;
+    width: 600px;
+    margin-left: 30%;
+    margin-right:30%;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
 .flex-item {
     font-family: 'Old Standard TT', serif;
-    background-color: cornflowerblue;
-    width: 200px;
-    margin-left: 40%;
-    margin-right:40%;
-    margin-top: 20px;
+    background-color: lightgrey;;
+    width: 600px;
+    margin-left: 30%;
+    margin-right:30%;
     margin-bottom: 20px;
     padding: 10px;
     font-size: 20px;

@@ -37,7 +37,7 @@ var twitchChannels = ["ESL_SC2",
                 titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
                 
                 // sort out into offline or streaming
-                if (data["stream"] === null){
+                if (data["stream"] === null || data["error"] != undefined){
                     console.log("not streaming");
                     // check if channel is still alive
                     var channelUrl = "https://wind-bow.gomix.me/twitch-api/channels/"+twitchChannels[ii]+ "?callback=?"
@@ -67,8 +67,8 @@ var twitchChannels = ["ESL_SC2",
                     )
                         
                 } else{
-                    console.log("streaming");
                     console.log("currently streaming");
+                    console.log(data);
                     var onlineElements = document.createAttribute("class");
                     onlineElements.value = "streamElements";                           // Set the value of the class attribute
                     titles.setAttributeNode(onlineElements); 
