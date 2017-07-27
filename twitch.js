@@ -24,18 +24,14 @@ var twitchChannels = ["ESL_SC2",
         $.getJSON(
             url[ii],
             function(data){
-                
                 console.log(ii);
-                // console.log(data);
-                // check if not disconnected
-
                 // create anchor element
                 var titles = document.createElement("a");
                 var channelText = document.createTextNode(twitchChannels[ii]);    
                 titles.appendChild(channelText);
                 titles.title = twitchChannels[ii];
                 titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
-                
+                titles.classList.add("titles");
                 // sort out into offline or streaming
                 if (data["stream"] === null || data["error"] != undefined){
                     console.log("not streaming");
