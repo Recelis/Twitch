@@ -115,3 +115,7 @@ function populateChannelList(){
         $("#channelList").append(channelLine);
     });
 }
+
+function openWindow(){
+    window.open("https://github.com/Recelis/Twitch",'_blank');
+}
