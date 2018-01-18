@@ -2,10 +2,19 @@
 // use flexbox properly
 // make links on channels
 
+var state = "NOWSTREAMING";
 
-
-$(document).ready(function(){
-var twitchChannels = ["ESL_SC2", 
+var twitchChannels = [
+    "Chad",
+    "Pewdiepie",
+    "chocoTaco",
+    "stylishnoob4",
+    "nergis12",
+    "chinglishtv",
+    "PCGamer",
+    "gitsie",
+    "Chess",
+    "ESL_SC2", 
     "OgamingSC2", 
     "cretetion", 
     "freecodecamp", 
@@ -13,77 +22,87 @@ var twitchChannels = ["ESL_SC2",
     "habathcx", 
     "RobotCaleb", 
     "noobs2ninjas",
-    "comster404"];
+    "comster404"
+];
+let newRow = 0;
 
-    var url = [];
-    for (var ii = 0; ii < twitchChannels.length; ii++){ 
-        url.push("https://wind-bow.gomix.me/twitch-api/streams/"+twitchChannels[ii]+ "?callback=?");
-    }
-    for (var ii =0; ii < twitchChannels.length; ii++){
-        (function(ii) {
-        $.getJSON(
-            url[ii],
-            function(data){
-                console.log(ii);
-                // create anchor element
-                var titles = document.createElement("a");
-                var channelText = document.createTextNode(twitchChannels[ii]);    
-                titles.appendChild(channelText);
-                titles.title = twitchChannels[ii];
-                titles.href = "https://www.twitch.tv/" + twitchChannels[ii];
-                titles.classList.add("titles");
-                // sort out into offline or streaming
-                if (data["stream"] === null || data["error"] != undefined){
-                    console.log("not streaming");
-                    // check if channel is still alive
-                    var channelUrl = "https://wind-bow.gomix.me/twitch-api/channels/"+twitchChannels[ii]+ "?callback=?"
-                    $.getJSON(
-                        channelUrl,
-                        function(channelData){
-                            console.log("CHANNEL DATA");
-                            console.log(channelData);
-                            if (channelData["status"] === 404){
-                                var nonExistentElements = document.createAttribute("class");
-                                nonExistentElements.value = "offlineElements";                           // Set the value of the class attribute
-                                titles.setAttributeNode(nonExistentElements); 
-                                var element = document.getElementById("closedElements");
-                                element.appendChild(titles);
-                                var lineBreak = document.createElement("br");
-                                element.appendChild(lineBreak);
-                            } else{
-                                var offlineElements = document.createAttribute("class");
-                                offlineElements.value = "offlineElements";                           // Set the value of the class attribute
-                                titles.setAttributeNode(offlineElements); 
-                                var element = document.getElementById("offlineElements");
-                                element.appendChild(titles);
-                                var lineBreak = document.createElement("br");
-                                element.appendChild(lineBreak);
-                            }
-                        }
-                    )
-                        
-                } else{
-                    console.log("currently streaming");
-                    console.log(data);
-                    var onlineElements = document.createAttribute("class");
-                    onlineElements.value = "streamElements";                           // Set the value of the class attribute
-                    titles.setAttributeNode(onlineElements); 
-                    var element = document.getElementById("streamElements");
-                    element.appendChild(titles);
-                    var lineBreak = document.createElement("br");
-                    element.appendChild(lineBreak);
-                    var addDetails = document.createElement("p");
-                    var streamDetails = document.createTextNode(data["stream"]["channel"]["game"]);     
-                    addDetails.appendChild(streamDetails);
-                    element.appendChild(addDetails); 
-                }
-                // check if not streaming
+function changeState(newState){
+    state = newState;
+    // clear gallery
+    $("#gallery").empty();
+    createGallery();
+}
 
 
-                
-                console.log(data);
-            }
-        );
-         })(ii);
-    }    
+
+$(document).ready(function(){
+    populateChannelList();
+    createGallery();
 });
+
+function createGallery(){
+    twitchChannels.map((channel)=>{
+        $.getJSON(
+            "https://wind-bow.gomix.me/twitch-api/streams/"+channel+ "?callback=?",
+            (data)=>createProfile(channel,data)
+        )
+    });
+} 
+
+function createProfile(channel,data){
+    newRow++;
+    console.log(channel);
+    console.log(data);
+    let dataStatus = getDataStatus(data);
+    console.log(dataStatus);
+    switch(state){
+        case "NOWSTREAMING":
+            if (dataStatus !== "NOWSTREAMING") {console.log("pass this");return};
+            break;
+        case "CLOSED":
+            if (dataStatus !== "CLOSED") return;
+            break;
+        case "OFFLINE":
+            if (dataStatus !== "OFFLINE") return;
+            break;
+        default:
+            break;
+    }
+    let profile = $("<div class = profile></div>")
+    // create anchor element
+    profile.append(createImage(data));
+    profile.append(createAnchor(channel));
+    $("#gallery").append(profile);
+}
+
+function getDataStatus(data){
+    if (data["stream"] !== null) return "NOWSTREAMING";
+    else if (data["status"] === 404) return "CLOSED";
+    else return "OFFLINE";
+}
+
+function createImage(data){
+    var profileImage = $("<img class = 'profileImage'/>");
+    // profileImage
+    if (data["stream"] !== null){
+        if (data["stream"]["logo"] !== null) profileImage.attr("src", data["stream"]["channel"]["logo"]);
+        else profileImage.attr("src", "./img/twitchlogo.png");
+    }
+    else profileImage.attr("src", "./img/twitchlogo.png");
+    return profileImage;
+}
+
+function createAnchor(channel){
+    var profileText = $("<a class = 'profileText'/>");
+    profileText.text(channel);    
+    profileText.attr("href", "https://www.twitch.tv/" +channel);
+    return profileText;
+}
+
+function populateChannelList(){
+    twitchChannels.map((channel)=>{
+        let channelLine = $("<p class = 'channelLine'></p>");
+        channelLine.text(channel);
+        $("#channelList").append(channelLine);
+    });
+}

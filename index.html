@@ -16,7 +16,7 @@ This webpage will be developed with flexbox, proper ajax calls, and no jQuery
         <link rel="stylesheet" type="text/css" href="css/twitch.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT" rel="stylesheet">  
-        <title>TWITCH TV</title>
+        <title>Twitch Streaming</title>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,26 +24,27 @@ This webpage will be developed with flexbox, proper ajax calls, and no jQuery
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
         <script src="./twitch.js"></script>
     </html>
     <body>
-        <div class = "flex-container">
-            <div class = "flex-title"><h1><span class = "logo"></span> Ausmerican TV </h1></div>
-        </div>
-            <div class = "flex-container">
-                <div class = "flex-item"><h2> Twitch Tv </h2></div> 
+            <div class = "titleBar"> 
+                <span><i class="fa fa-twitch"></i></span>
+                <button class = "titleButtons" onClick = "changeState('NOWSTREAMING')"> Now Streaming </button>
+                <button class = "titleButtons" onClick = "changeState('OFFLINE')"> Offline </button>
+                <button class = "titleButtons" onClick = "changeState('CLOSED')"> Closed </button>
             </div>
-            <div class = "flex-container">
-                <div class = "flex-item"><h3 class = "online"> Now Streaming: </h3></div>
-                <div class = "flex-item"><p id = "streamElements"> </p></div>
+            
+            <div id = "channelList" class = "sideBar">
+                <p>Channel List</p>
+                <div class = "bottomLine"></div>
             </div>
-            <div class = "flex-container">
-                <div class = "flex-item"><h3 class = "offline"> Offline: </h3></div>
-                <div class = "flex-item"><p id = "offlineElements"> </p></div>
-            </div>
-            <div class = "flex-container">
-                <div class = "flex-item"><h3 class = "nonactive"> Channels Closed: </h3></div>
-                <div class = "flex-item"><p id = "closedElements"> </p></div>
+            <img src = "./img/gameyimage.jpeg" class = "gameyImage"/>
+            <h1 class = "channelTitle">Channels</h1>
+            <p class = "status">some text</p>
+            <div class = "bottomLine"></div>
+            <div id = "gallery" class = "container">
             </div>
         </div>
     </body>
