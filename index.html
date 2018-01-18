@@ -25,13 +25,13 @@ This webpage will be developed with flexbox, proper ajax calls, and no jQuery
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+        <link rel='shortcut icon' type='image/png' href='./favicon.ico' />
         <script src="./twitch.js"></script>
     </html>
     <body>
             <div class = "titleBar"> 
                 <span><i class="fa fa-twitch"></i></span>
-                <button class = "titleButtons" onClick = "changeState('NOWSTREAMING')"> Now Streaming </button>
+                <button class = "titleButtons" onClick = "changeState('NOW STREAMING')"> Now Streaming </button>
                 <button class = "titleButtons" onClick = "changeState('OFFLINE')"> Offline </button>
                 <button class = "titleButtons" onClick = "changeState('CLOSED')"> Closed </button>
             </div>
@@ -42,8 +42,8 @@ This webpage will be developed with flexbox, proper ajax calls, and no jQuery
             </div>
             <img src = "./img/gameyimage.jpeg" class = "gameyImage"/>
             <h1 class = "channelTitle">Channels</h1>
-            <p class = "status">some text</p>
-            <div class = "bottomLine"></div>
+            <p id = "status">NOW STREAMING</p>
+            <div class = "bottomLine" style="border-color:#dad8de"></div>
             <div id = "gallery" class = "container">
             </div>
         </div>

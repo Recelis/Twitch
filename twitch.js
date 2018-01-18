@@ -2,7 +2,7 @@
 // use flexbox properly
 // make links on channels
 
-var state = "NOWSTREAMING";
+var state = "NOW STREAMING";
 
 var twitchChannels = [
     "Chad",
@@ -30,6 +30,7 @@ function changeState(newState){
     state = newState;
     // clear gallery
     $("#gallery").empty();
+    $("#status").text(state);// change status on page
     createGallery();
 }
 
@@ -56,8 +57,8 @@ function createProfile(channel,data){
     let dataStatus = getDataStatus(data);
     console.log(dataStatus);
     switch(state){
-        case "NOWSTREAMING":
-            if (dataStatus !== "NOWSTREAMING") {console.log("pass this");return};
+        case "NOW STREAMING":
+            if (dataStatus !== "NOW STREAMING") {console.log("pass this");return};
             break;
         case "CLOSED":
             if (dataStatus !== "CLOSED") return;
@@ -71,12 +72,12 @@ function createProfile(channel,data){
     let profile = $("<div class = profile></div>")
     // create anchor element
     profile.append(createImage(data));
-    profile.append(createAnchor(channel));
+    profile.append(createAnchor(channel,data));
     $("#gallery").append(profile);
 }
 
 function getDataStatus(data){
-    if (data["stream"] !== null) return "NOWSTREAMING";
+    if (data["stream"] !== null) return "NOW STREAMING";
     else if (data["status"] === 404) return "CLOSED";
     else return "OFFLINE";
 }
@@ -92,10 +93,18 @@ function createImage(data){
     return profileImage;
 }
 
-function createAnchor(channel){
-    var profileText = $("<a class = 'profileText'/>");
-    profileText.text(channel);    
-    profileText.attr("href", "https://www.twitch.tv/" +channel);
+function createAnchor(channel, data){
+    var profileText = $("<div></div>");
+    var link = $("<a class = 'profileText'/>");
+    link.text(channel);
+    profileText.append(link);
+    if (getDataStatus(data) === "NOW STREAMING"){
+        profileText.append(" "+data["stream"]["game"]);
+        let info = $("<div><a class = 'info'/></div");
+        info.text(data["stream"]["viewers"] + " viewers");
+        profileText.append(info);
+    } 
+    link.attr("href", "https://www.twitch.tv/" +channel);
     return profileText;
 }
 
