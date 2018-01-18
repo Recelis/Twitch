@@ -68,7 +68,7 @@ body{
     margin-top:-179px;
     padding:0px;
     text-align:bottom;
-    background-color:#30302e3d;
+    background-color:#0000007a;
     position:relative;
     z-index:1;
     padding-top:90px;
@@ -100,7 +100,7 @@ body{
 
 .profileText{
     display:block;
-    width: 330px;
+    width: 247px;
     text-align:left;
     text-decoration: none !important;
     color: black !important;
@@ -121,8 +121,8 @@ a:link{
 
 .profileImage{
     display:block;
-    width:330px;
-    height:180px;
+    width:247px;
+    height:135px;
 }
 
 #status{
